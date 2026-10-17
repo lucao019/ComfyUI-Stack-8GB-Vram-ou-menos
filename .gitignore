@@ -26,14 +26,11 @@ __pycache__/
 .cache/
 ComfyUI_windows_portable/ComfyUI/models/**/.cache/
 
-# Git dos custom nodes (cada um tem o seu)
-ComfyUI_windows_portable/ComfyUI/custom_nodes/*/.git/
-
 # Python embarcado (gigante, nao versionar)
 ComfyUI_windows_portable/python_embeded/
 
-# ComfyUI core (ja tem repo proprio)
-ComfyUI_windows_portable/ComfyUI/.git/
+# ComfyUI core completo (tem repo proprio, nao versionar aqui)
+ComfyUI_windows_portable/ComfyUI/
 
 # Temporarios
 *.tmp

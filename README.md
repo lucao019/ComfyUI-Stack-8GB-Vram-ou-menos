@@ -122,10 +122,12 @@ Para começar use: `01-basic-generation\2026-08-06_H3_Turbo_Stable_4V4A.json`
 
 - [x] ComfyUI Portable extraído e funcionando
 - [x] 5 custom nodes instalados nas pastas corretas
+- [x] `ComfyUI-ClipProj` instalado (bridge Qwen 4B → H3)
 - [x] Dependências Python instaladas
-- [x] Script de download dos modelos criado
-- [ ] Download dos modelos em andamento (~21.5 GB)
-- [ ] Primeiro vídeo gerado
+- [x] Modelos baixados (~22 GB via aria2c)
+- [x] Workflow T2VA funcional (`workflow_minimax_h3_meus_modelos.json`)
+- [x] **Primeiro vídeo gerado com sucesso** 🎉
+- [ ] Workflow I2VA com imagem do rosto (próximo passo)
 
 ---
 

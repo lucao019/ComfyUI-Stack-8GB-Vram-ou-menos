@@ -6,12 +6,54 @@ Todas as mudanças relevantes do projeto estão documentadas aqui.
 
 ## [Não lançado] — Em progresso
 
-### Em andamento
-- Download dos modelos MiniMax H3 (~21.5 GB via `baixar_modelos_h3.py`)
-
 ### Próximo
-- Primeiro teste de geração de vídeo
-- Ajuste de parâmetros para RTX 2060
+- Workflow I2VA (Image to Video) com foto do rosto
+- Geração de vídeo com expressão facial — feliz para triste
+- Ajuste de performance para gerações mais longas (90 frames, 30fps)
+
+---
+
+## [0.2.0] — 2026-10-17
+
+### Primeiro vídeo gerado com sucesso
+
+#### Adicionado
+- **`ComfyUI-ClipProj`** — custom node instalado para fazer a ponte entre
+  Qwen 4B (dim 2560) e o H3 (dim 5120), resolvendo o erro de shape mismatch
+- **`baixar_modelos_aria2.ps1`** — script de download via aria2c com 16 conexões
+  paralelas, retomada automática e muito mais estável que o `hf_hub_download`
+- **`workflow_minimax_h3_meus_modelos.json`** — workflow T2VA completo e funcional
+  com todos os modelos do stack 6GB VRAM:
+  - `UNETLoader` → W4A8 pruned
+  - `CLIPLoader` → Qwen 4B INT8
+  - `ClipProjApply` → matriz mmh3-4b-ClipProj-v3-mlp
+  - `VAELoader` x2 → vídeo INT8 + áudio FP32
+  - `LoraLoaderBypassModelOnly` → Turbo 4-step
+  - `MiniMaxH3AudioConditioningT8` → conditioning T2VA
+  - `MiniMaxH3DualClockSamplerT8` → sampler dual clock
+  - `MiniMaxH3AVDecodeT8` → decode vídeo+áudio
+  - `VHS_VideoCombine` → exporta MP4 H.264
+
+#### Corrigido
+- Erro `mat1 and mat2 shapes cannot be multiplied (37x2560 and 5120x5376)` —
+  causado pela ausência do nó `ClipProjApply` entre o CLIP e o conditioning
+- Erro de download travando em 33-47% — substituído `hf_hub_download` por `aria2c`
+- Arquivo `.aria2` de controle órfão removido da pasta `vae/`
+- `aria2c` não reconhecido no PATH — usando caminho absoluto do executável
+- Workflow original do custom node usava modelos incompatíveis com o stack 6GB
+  (`int8_convrot`, `nvfp4_awq`, `vae_fp16`) — todos substituídos pelos corretos
+
+#### Primeiro resultado
+- Vídeo T2VA gerado com sucesso: chuva em telhado de metal à noite
+- Resolução: 512x320 — Frames: 49 — FPS: 24 — Duração: ~2s
+- Tempo de geração: ~45 minutos (RTX 2060, CPU offload, 4 passos Turbo)
+- Vídeo com áudio gerado nativamente e sincronizado
+
+#### Performance observada (RTX 2060 6GB + 16GB RAM)
+- ~10-12 minutos por passo de sampling
+- Total 4 passos: ~45 minutos para 2s de vídeo
+- Modelo opera em modo CPU offload (11GB não cabe nos 6GB de VRAM)
+- Resoluções menores (384x224) podem reduzir para ~10 min por geração
 
 ---
 
