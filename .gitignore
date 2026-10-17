@@ -1,0 +1,40 @@
+# Modelos grandes - nao versionar
+ComfyUI_windows_portable/ComfyUI/models/**/*.safetensors
+ComfyUI_windows_portable/ComfyUI/models/**/*.gguf
+ComfyUI_windows_portable/ComfyUI/models/**/*.bin
+ComfyUI_windows_portable/ComfyUI/models/**/*.pt
+ComfyUI_windows_portable/ComfyUI/models/**/*.ckpt
+ComfyUI_windows_portable/ComfyUI/models/**/*.pth
+
+# Arquivo zip original (ja extraido)
+*.7z
+*.zip
+
+# Outputs gerados
+ComfyUI_windows_portable/ComfyUI/output/
+ComfyUI_windows_portable/ComfyUI/input/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Cache HuggingFace dentro do projeto
+.cache/
+ComfyUI_windows_portable/ComfyUI/models/**/.cache/
+
+# Git dos custom nodes (cada um tem o seu)
+ComfyUI_windows_portable/ComfyUI/custom_nodes/*/.git/
+
+# Python embarcado (gigante, nao versionar)
+ComfyUI_windows_portable/python_embeded/
+
+# ComfyUI core (ja tem repo proprio)
+ComfyUI_windows_portable/ComfyUI/.git/
+
+# Temporarios
+*.tmp
+*.temp
